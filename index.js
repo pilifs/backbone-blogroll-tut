@@ -41,5 +41,16 @@ var BlogView = Backbone.View.extend({
 
 // View for all blog
 var BlogsView = Backbone.View.extend({
-
+  model: blogs,
+  el: $('.blogs-list'),
+  initialize: function() {
+    this.model.on('add', this.render(), this);
+  },
+  render: function() {
+    var self = this;
+    this.$el.html('');
+    _.each(this.model.toArray(), function(blog) {
+      self.$el.append((new BlogView({model: blog})).render().$el);
+    });
+  }
 });
