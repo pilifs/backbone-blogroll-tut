@@ -54,3 +54,15 @@ var BlogsView = Backbone.View.extend({
     });
   }
 });
+
+$(document).ready(function() {
+  $('.add-blog').on('click', function() {
+    var blog = new Blog({
+      author: $('.author-input').val(),
+      title: $('.title-input').val(),
+      url: $('.url-input').val()
+    });
+    console.log(blog.toJSON());
+    blogs.add(blog);
+  });
+});
