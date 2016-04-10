@@ -21,6 +21,7 @@ module.exports = function(grunt) {
         // Point to the files that should be updated when
         // you run `grunt bower-install`
         src: [
+          'index.html',
           'app/views/**/*.html',   // .html support...
           'app/views/**/*.jade',   // .jade support...
           'app/styles/main.scss',  // .scss & .sass support...
@@ -39,4 +40,10 @@ module.exports = function(grunt) {
       }
     }
   });
+
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-bower-install');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  grunt.registerTask('default', ['jshint']);
 };
