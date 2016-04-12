@@ -7,7 +7,7 @@ var Blog = Backbone.Model.extend ({
   }
 });
 
-// Collections
+// Collections -- quick and dirty local server setup
 var Blogs = Backbone.Collection.extend({
   url: 'http://localhost:3000/api/blogs'
 });
@@ -124,5 +124,15 @@ $(document).ready(function() {
     $('.url-input').val('');
     console.log(blog.toJSON());
     blogs.add(blog);
+
+    // null for first argument, second arg callback
+    blog.save(null, {
+      success: function(response) {
+        console.log('Successfully saved blog with _id: ' + response.toJSON()._id);
+      },
+      error: function() {
+        console.log('Failed to save blog!');
+      }
+    });
   });
 });
