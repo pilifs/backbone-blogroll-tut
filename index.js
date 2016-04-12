@@ -36,7 +36,7 @@ var BlogView = Backbone.View.extend({
   },
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
-    return this;
+		return this;
   }
 });
 
@@ -57,7 +57,7 @@ var BlogsView = Backbone.View.extend({
   }
 });
 
-var blogsView = new BlogsView;
+var blogsView = new BlogsView();
 
 $(document).ready(function() {
   $('.add-blog').on('click', function() {
@@ -67,9 +67,9 @@ $(document).ready(function() {
       url: $('.url-input').val()
     });
     // Clear input forms after adding a blog
-    author: $('.author-input').val(''),
-    title: $('.title-input').val(''),
-    url: $('.url-input').val('')
+    $('.author-input').val('');
+    $('.title-input').val('');
+    $('.url-input').val('');
     console.log(blog.toJSON());
     blogs.add(blog);
   });
