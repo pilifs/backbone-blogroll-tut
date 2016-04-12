@@ -58,6 +58,14 @@ app.delete('/api/blogs/:id', function(request, response) {
     });
 });
 
+// PUT blog
+app.put('/api/blogs/:id', function(request, response) {
+  console.log('Received an UPDATE request for _id: ' + request.params.id);
+  Blog.update({_id: request.params.id}, request.body, function(err) {
+    response.send({_id: request.params.id});
+  });
+});
+
 var port = 3000;
 app.listen(port);
 console.log('server on ' + port);

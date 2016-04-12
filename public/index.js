@@ -63,6 +63,15 @@ var BlogView = Backbone.View.extend({
     this.model.set('author', $('.author-update').val());
     this.model.set('title', $('.title-update').val());
     this.model.set('url', $('.url-update').val());
+
+    this.model.save(null, {
+      success: function(response) {
+        console.log('Successfully UPDATED blog with _id: ' + response.toJSON()._id);
+      },
+      error: function(err) {
+        console.log('Failed to update blog!');
+      }
+    });
   },
   cancel: function() {
     // Render default (remove edit/cancel buttons)
