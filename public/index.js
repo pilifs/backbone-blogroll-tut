@@ -1,5 +1,4 @@
 // Model
-
 var Blog = Backbone.Model.extend ({
   defaults: {
     author: '',
@@ -9,7 +8,9 @@ var Blog = Backbone.Model.extend ({
 });
 
 // Collections
-var Blogs = Backbone.Collection.extend({});
+var Blogs = Backbone.Collection.extend({
+  url: 'http://localhost:3000/api/blogs'
+});
 
 // instantiate 2 blogs for testing
 // var blog1 = new Blog({
@@ -86,6 +87,17 @@ var BlogsView = Backbone.View.extend({
 			}, 30);
 		}, this);
     this.model.on('remove', this.render, this);
+
+    this.model.fetch({
+      success: function(response) {
+        _.each(response.toJSON(), function (item) {
+          console.log('Successfully got blog with _id: ' + item._id);
+        });
+      },
+      error: function() {
+        console.log('Failed to get blogs');
+      }
+    });
   },
   render: function() {
     var self = this;
