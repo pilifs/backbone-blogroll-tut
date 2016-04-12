@@ -11,21 +11,21 @@ var Blog = Backbone.Model.extend ({
 // Collections
 var Blogs = Backbone.Collection.extend({});
 
-// instantiate 2 blogs
-var blog1 = new Blog({
-  author: "Filip",
-  title: "Filip testing 1",
-  url: "http://test1.com"
-});
-
-var blog2 = new Blog({
-  author: "Filip",
-  title: "Filip testing 2",
-  url: "http://test2.com"
-});
+// instantiate 2 blogs for testing
+// var blog1 = new Blog({
+//   author: "Filip",
+//   title: "Filip testing 1",
+//   url: "http://test1.com"
+// });
+//
+// var blog2 = new Blog({
+//   author: "Filip",
+//   title: "Filip testing 2",
+//   url: "http://test2.com"
+// });
 
 // instantiate a Collection
-var blogs = new Blogs([blog1, blog2]);
+var blogs = new Blogs();
 
 // View for one blog
 var BlogView = Backbone.View.extend({
@@ -33,6 +33,24 @@ var BlogView = Backbone.View.extend({
   tagName: 'tr',
   initialize: function() {
     this.template = _.template($('.blogs-list-template').html());
+  },
+  events: {
+    'click .edit-blog': 'edit'
+  },
+  edit: function() {
+    $('.edit-blog').hide();
+    $('.delete-blog').hide();
+    $('.update-blog').show();
+    $('.cancel').show();
+
+    var author = this.$('.author').html();
+    var title = this.$('.title').html();
+    var url = this.$('.url').html();
+
+    this.$('.author').html('<input type="text" class="form-control author-update" value="' + author + '">');
+    this.$('.title').html('<input type="text" class="form-control title-update" value="' + title + '">');
+    this.$('.url').html('<input type="text" class="form-control url-update" value="' + url + '">');
+
   },
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
