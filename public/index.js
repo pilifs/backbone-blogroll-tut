@@ -1,3 +1,6 @@
+// Override Backbone models with Mongoose _id
+Backbone.Model.prototype.idAttribute = '_id';
+
 // Model
 var Blog = Backbone.Model.extend ({
   defaults: {
@@ -66,7 +69,14 @@ var BlogView = Backbone.View.extend({
     blogsView.render();
   },
   delete: function() {
-    this.model.destroy();
+    this.model.destroy({
+      success: function(response) {
+        console.log('Successfully DELETED blog with _id: ' + response.toJSON()._id);
+      },
+      error: function(err) {
+        console.log('Failed to delete blog');
+      }
+    });
   },
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
